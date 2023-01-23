@@ -1,0 +1,49 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+
+auto eth0
+iface eth0 inet static
+	address 10.0.6.65
+	network 10.0.6.64
+	netmask 255.255.255.252
+	broadcast 10.0.6.67
+	dns-nameservers 8.8.8.8 8.8.4.4
+
+auto eth1
+iface eth1 inet static
+	address 10.0.6.1
+	network 10.0.6.0
+	netmask 255.255.255.192
+	broadcast 10.0.6.63
+	dns-nameservers 8.8.8.8 8.8.4.4
+
+auto eth2
+iface eth2 inet static
+	address 10.0.4.1
+	network 10.0.4.0
+	netmask 255.255.254.0
+	broadcast 10.0.5.255
+	dns-nameservers 8.8.8.8 8.8.4.4
+
+auto eth3
+iface eth3 inet static
+	address 10.0.6.70
+	network 10.0.6.68
+	netmask 255.255.255.252
+	broadcast 10.0.6.71
+	dns-nameservers 8.8.8.8 8.8.4.4
+
+#Static routes
+
+post-up route add -net 10.0.0.0/22 gw 10.0.6.66 dev eth0 #DMZ network
+post-up route add default gw 10.0.6.69 dev eth3 #F1 come default
+
